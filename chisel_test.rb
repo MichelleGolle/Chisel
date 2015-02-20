@@ -22,11 +22,20 @@ class TestChisel < Minitest::Test
     assert_equal ["This is a test."], chisel.split_text(text)
   end
 
-  #def test_it_can_recognize_hash_as_first_charater
-  #chisel = Chisel.new
-  #assert_equal
-  #end
+  def test_it_can_recognize_hash
+  chisel = Chisel.new
+  text = "# Hello"
+  assert chisel.hash_line?(text)
+  end
+  def test_it_can_recognize_two_hashes
+    chisel = Chisel.new
+    text = "# Hello"
+    refute chisel.two_hash_line?(text)
+  end
 
-
-
+def test_it_replaces_markdown_with_html
+chisel = Chisel.new
+text = "#Hello"
+assert_equal "<h1>Hello</h1>", chisel.to_html(text)
+end
 end
